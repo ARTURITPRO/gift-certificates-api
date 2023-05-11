@@ -3,13 +3,9 @@ package ru.clevertec.ecl.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.clevertec.ecl.config.AdvancedConfig;
 import ru.clevertec.ecl.dto.GiftCertificateDTO;
-
 import ru.clevertec.ecl.service.GiftCertificateService;
 
 import java.util.List;

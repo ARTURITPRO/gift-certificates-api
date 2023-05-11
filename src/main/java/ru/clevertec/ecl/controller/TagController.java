@@ -1,35 +1,41 @@
 package ru.clevertec.ecl.controller;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.clevertec.ecl.config.AdvancedConfig;
 import ru.clevertec.ecl.dto.TagDTO;
-import ru.clevertec.ecl.entity.Tag;
-import ru.clevertec.ecl.service.GiftCertificateService;
 import ru.clevertec.ecl.service.TagService;
 
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/tag")
 public class TagController {
-
-    TagService tagService;
+//            GenericApplicationContext ctx = new AnnotationConfigApplicationContext(AdvancedConfig.class);
+//    TagService tagService = ctx.getBean(TagService.class);
+//TagDTO t  = tagController.getById(1);
+//log.info(t.toString());
+    private final TagService tagService;
 
     @Autowired
     public TagController(TagService tagService) {
+        System.out.println("public TagController(TagService tagService)");
+        log.info("public TagController(TagService tagService)");
         this.tagService = tagService;
     }
 
+    @GetMapping("/hello-world")
+    public String sayHello (){
+        return "Hello-World";
+    }
+
+
     @GetMapping
     public List<TagDTO> fidAll() {
+        System.out.println("!!!!!!!!!!public List<TagDTO> fidAll()");
+        log.info("!!!!!!!!!!"+"public List<TagDTO> fidAll()");
         return tagService.findAll();
     }
 

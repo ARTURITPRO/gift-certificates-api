@@ -1,4 +1,4 @@
-package ru.clevertec.ecl.config;
+package ru.clevertec.ecl;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +16,8 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.reactive.TransactionSynchronizationManager;
+import org.springframework.transaction.support.TransactionSynchronization;
 
 import javax.sql.DataSource;
 import java.io.IOException;
