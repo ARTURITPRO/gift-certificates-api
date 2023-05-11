@@ -15,5 +15,4 @@ public class MessageUtil {
     public String getMessage(String code, Object... objects){
         return messageSource.getMessage(code, objects, Constants.LOCALE);
     }
-
 }

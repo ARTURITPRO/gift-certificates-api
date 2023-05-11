@@ -1,5 +1,3 @@
-SET search_path TO giftCertificate;
-
 INSERT INTO gift_certificate (name, description, price, duration, create_date, last_update_date)
 VALUES ('name1', 'description1', '128.3', '12', '2023-04-07T13:06:35.76', '2022-04-07T13:06:35.76');
 
@@ -63,18 +61,30 @@ VALUES (5, 5);
 INSERT INTO gift_certificate_tag(gift_certificate_id, tag_id)
 VALUES (6, 6);
 
-select * from gift_certificate gs
-                      inner join  tag t
-         on gs.id=t.id
-                    where t.name = :name;
+INSERT INTO user_data (first_name, last_name)
+VALUES ('Ivan', 'Ivanov');
 
-SELECT giftcertif0_ .*  FROM
-                            giftCertificate.gift_certificate giftcertif0_
-                        INNER JOIN
-                            gift_certificate_tag tags1_
-                        ON giftcertif0_.id = tags1_.gift_certificate_id
-                        INNER JOIN
-                            giftCertificate.tag tag2_
-                        ON tags1_.tag_id = tag2_.id
-                        WHERE
-                                tag2_.name like ('%'||'tag'||'%');
+INSERT INTO user_data (first_name, last_name)
+VALUES ( 'Petr', 'Petrov');
+
+INSERT INTO user_data (first_name, last_name)
+VALUES ('Alex', 'Popov');
+
+INSERT INTO user_data (first_name, last_name)
+VALUES ('Dmitriy', 'Morozov');
+
+
+INSERT INTO order_data(user_id, certificate_id, price, purchase_date)
+VALUES (1, 2, 445, '2023-05-07T17:07:35.76');
+
+INSERT INTO order_data(user_id, certificate_id, price, purchase_date)
+VALUES (2, 4, 45.3, '2023-05-07T17:07:35.76');
+
+INSERT INTO order_data(user_id, certificate_id, price, purchase_date)
+VALUES (3, 2, 898, '2023-05-07T17:07:35.76');
+
+INSERT INTO order_data(user_id, certificate_id, price, purchase_date)
+VALUES (4, 2, 234.4, '2023-05-07T17:07:35.76');
+
+INSERT INTO order_data(user_id, certificate_id, price, purchase_date)
+VALUES (4, 3, 456.3, '2023-05-07T17:07:35.76');

@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tag", schema = "giftCertificate")
+@Table(name = "tag", schema = "public")
 @NamedQueries({
         @NamedQuery(name = Tag.FIND_TAG_BY_TAG_NAME,
                 query = "select gs from Tag gs " +
