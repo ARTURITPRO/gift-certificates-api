@@ -1,67 +1,95 @@
 package ru.clevertec.ecl.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.clevertec.ecl.dto.PageResponse;
 import ru.clevertec.ecl.dto.TagDTO;
+import ru.clevertec.ecl.entity.Tag;
 import ru.clevertec.ecl.service.TagService;
 
+import javax.validation.Valid;
 import java.util.List;
 
-@Slf4j
+
 @RestController
-@RequestMapping("/tag")
+@RequiredArgsConstructor
+@RequestMapping("/tags")
 public class TagController {
-//            GenericApplicationContext ctx = new AnnotationConfigApplicationContext(AdvancedConfig.class);
-//    TagService tagService = ctx.getBean(TagService.class);
-//TagDTO t  = tagController.getById(1);
-//log.info(t.toString());
+
     private final TagService tagService;
 
-    @Autowired
-    public TagController(TagService tagService) {
-        System.out.println("public TagController(TagService tagService)");
-        log.info("public TagController(TagService tagService)");
-        this.tagService = tagService;
-    }
-
-    @GetMapping("/hello-world")
-    public String sayHello (){
-        return "Hello-World";
-    }
-
-
+    /**
+     * Поиск всех тегов
+     *
+     * @param pageable постраничный вывод
+     * @return все найденные теги
+     */
     @GetMapping
-    public List<TagDTO> fidAll() {
-        System.out.println("!!!!!!!!!!public List<TagDTO> fidAll()");
-        log.info("!!!!!!!!!!"+"public List<TagDTO> fidAll()");
-        return tagService.findAll();
+    public PageResponse<TagDTO> fidAll(Pageable pageable) {
+        final Page<TagDTO> page = tagService.findAll(pageable);
+        return PageResponse.of(page);
     }
 
+    /**
+     * Поиск тега по id
+     *
+     * @param id уникальный идентификатор тега
+     * @return тег
+     */
     @GetMapping("/{id}")
     public TagDTO getById(@PathVariable("id") int id) {
         return tagService.findById(id);
     }
 
+    /**
+     * Сохранение тега
+     *
+     * @param tag тег
+     * @return сохраненный тег
+     */
     @PostMapping
-    public TagDTO save(@RequestBody TagDTO tag) {
+    public TagDTO save(@RequestBody  @Valid Tag tag) {
         return tagService.save(tag);
     }
 
+    /**
+     * Обновление данных существующего тега
+     *
+     * @param id  уникальный идентификатор тега
+     * @param tag новые значения
+     * @return обновленный тег
+     */
     @PutMapping("/{id}")
-    public TagDTO update(@PathVariable("id") int id, @RequestBody TagDTO tag) {
+    public TagDTO update(@PathVariable("id") int id, @RequestBody @Valid TagDTO tag) {
         return tagService.update(id, tag);
     }
 
+    /**
+     * Удаление существующего тега
+     *
+     * @param id муникальный идентификатор тега
+     * @return статус 200, если удаление произведено успешно
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") int id) {
         tagService.delete(id);
         return ResponseEntity.ok("Tag deleted successfully");
     }
-    @GetMapping("/tag")
-    public List<TagDTO> findByTagName(@RequestParam("tag_name") String tagName){
-        return tagService.findLstTagByTagName(tagName);
+
+    /**
+     * Поиск самого частоиспользуемого тега пользовтеля, у которого сумма всех заказов самая большая
+     *
+     * @return самый частоиспользуемый тег
+     */
+    @GetMapping("/super_tag")
+    public TagDTO getTheMostWidelyUsedTag() {
+        return tagService.findTheMostWidelyUsedTag();
     }
+
 
 }

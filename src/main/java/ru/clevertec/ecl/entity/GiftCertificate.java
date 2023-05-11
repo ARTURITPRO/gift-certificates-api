@@ -14,24 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "gift_certificate", schema = "giftCertificate")
-@NamedQueries({
-        @NamedQuery(name = GiftCertificate.FIND_GIFT_CERTIFICATE_BY_ID,
-                query = "select distinct s from GiftCertificate s " +
-                        "left join fetch s.tags i " +
-                        "where s.id = :id"),
-        @NamedQuery(name = GiftCertificate.FIND_ALL_WITH_TAG,
-                query = "select distinct s from GiftCertificate s " +
-                        "left join fetch s.tags i"),
-
-//        @NamedQuery(name = GiftCertificate.FIND_GIFT_CERTIFICATE_BY_TAG_NAME,
-//                query = "select gs from GiftCertificate gs " +
-//                        "join  gs.tags gts " +
-//                        "where gts.name LIKE CONCAT('%', :tagName, '%')")
-        @NamedQuery(name = GiftCertificate.FIND_GIFT_CERTIFICATE_BY_TAG_NAME,
-                query = "select gs from GiftCertificate gs " +
-                        "where gs.name LIKE CONCAT('%', :tagName, '%')")
-})
+@Table(name = "gift_certificate", schema = "public")
 public class GiftCertificate implements Serializable {
 
     public static final String FIND_GIFT_CERTIFICATE_BY_ID = "GiftCertificate.findById";
